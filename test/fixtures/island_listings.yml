@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  island_name: MyString
+  player_name: MyString
+  dodo_code: MyString
+  description: MyString
+  player_count: 1
+
+two:
+  island_name: MyString
+  player_name: MyString
+  dodo_code: MyString
+  description: MyString
+  player_count: 1

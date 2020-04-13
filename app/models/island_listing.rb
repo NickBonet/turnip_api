@@ -1,0 +1,2 @@
+class IslandListing < ApplicationRecord
+end
