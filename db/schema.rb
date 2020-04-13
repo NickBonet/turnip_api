@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_211816) do
+ActiveRecord::Schema.define(version: 2020_04_13_182311) do
 
   create_table "island_listings", force: :cascade do |t|
     t.string "island_name"
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(version: 2020_04_01_211816) do
     t.string "dodo_code"
     t.string "description"
     t.integer "player_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
