@@ -1,13 +1,12 @@
 module API
   module V1
     class IslandList < Grape::API
-      use Grape::Knock::Authenticable
       version 'v1', using: :header, vendor: 'K-Shadow'
       format :json
 
       resource :islands do
         desc 'Return all island listings.'
-        get :all_listings do
+        get :all do
           IslandListing.all
         end
 
@@ -18,8 +17,7 @@ module API
           requires :dodo_code, type: String, desc: 'Dodo code'
           requires :description, type: String, desc: 'Description of island/event'
         end
-        post :add_island do
-          current_user
+        post do
           IslandListing.create!(island_name: params[:island_name], player_name: params[:player_name],
           dodo_code: params[:dodo_code], description: params[:description])
         end
