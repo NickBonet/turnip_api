@@ -55,6 +55,10 @@ module API
           end
         end
       end
+
+      rescue_from Grape::Knock::ForbiddenError do
+        error!('403 Forbidden', 403)
+      end
     end
   end
 end
