@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module API
   module V1
     class IslandList < Grape::API
@@ -31,7 +33,7 @@ module API
         end
         post do
           IslandListing.create!(island_name: params[:island_name], player_name: params[:player_name],
-          dodo_code: params[:dodo_code], description: params[:description], player_count: 1, user_id: current_user.id)
+                                dodo_code: params[:dodo_code], description: params[:description], player_count: 1, user_id: current_user.id)
         end
 
         desc 'Delete an island listing.'
@@ -41,7 +43,7 @@ module API
         delete do
           IslandListing.delete(params[:id])
         end
-        
+
         desc 'Allows for updating Dodo Code and player count.'
         params do
           requires :id, type: Integer
