@@ -43,16 +43,11 @@ module API
         desc "Update a user's details."
         params do
           requires :password, type: String, regexp: password_regex
-          requires :password_confirm, type: String, regexp: password_regex
+          requires :password_confirm, type: String, regexp: password_regex, same_as: :password
         end
         put do
-          if params[:password] == params[:password_confirm]
-            user = User.find_by!(id: current_user.id)
-            user.update!(password: params[:password])
-          else
-            body 'Passwords do not match!'
-            status 422
-          end
+          user = User.find_by!(id: current_user.id)
+          user.update!(password: params[:password])
         end
       end
 
