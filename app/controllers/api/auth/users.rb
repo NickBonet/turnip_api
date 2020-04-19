@@ -6,6 +6,7 @@ module API
       version 'v1', using: :header, vendor: 'K-Shadow'
       format :json
       password_regex = %r{^(?=.*\d)(?=.*[~!@#$%^&*()_\-+=|\\\{\}\[\]:;<>?\/])(?=.*[A-Z])(?=.*[a-z])\S{8,40}$}
+      username_regex = %r{^[A-Za-z][A-Za-z0-9_-]{3,29}$}
 
       helpers do
         # If the client is even sending an Authorization header, ignore the request.
@@ -21,20 +22,15 @@ module API
       resource :users do
         desc 'Add a new user to the database.'
         params do
-          requires :username, type: String, regexp: /^[A-Za-z][A-Za-z0-9_-]{3,29}$/
+          requires :username, type: String, regexp: username_regex
           requires :email, type: String,
                            regexp: URI::MailTo::EMAIL_REGEXP
           requires :password, type: String, regexp: password_regex
-          requires :password_confirm, type: String, regexp: password_regex
+          requires :password_confirm, type: String, regexp: password_regex, same_as: :password
         end
         post do
           if !authorized?
-            if params[:password] == params[:password_confirm]
-              User.create!(name: params[:username], email: params[:email], password: params[:password])
-            else
-              body 'Passwords do not match!'
-              status 422
-            end
+            User.create!(name: params[:username], email: params[:email], password: params[:password])
           else
             body 'You are already logged in!'
             status 403
