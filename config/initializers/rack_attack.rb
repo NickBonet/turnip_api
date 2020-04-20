@@ -11,13 +11,13 @@ class Rack::Attack
     end
   end
 
-  throttle('signup/ip', limit: 5, period: 1.day) do |req|
+  throttle('signup/ip', limit: 3, period: 1.day) do |req|
     if req.path == '/auth/users' && req.post?
       req.ip
     end
   end
 
-  throttle('update user/ip', limit: 5, period: 1.day) do |req|
+  throttle('update user/ip', limit: 3, period: 1.day) do |req|
     if req.path == '/auth/users' && req.put?
       req.ip
     end

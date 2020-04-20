@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API backend for my Animal Crossing New Horizons website.
 
-Things you may want to cover:
+Of course, config/database.yml should be configured with database of choice. (Using SQLite only for dev currently)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Requires Redis server to be running for some functionality. (config/redis.yml)
+Also requires ENV vars to be set for SMTP server. (development.env/production.env)
