@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_182715) do
+ActiveRecord::Schema.define(version: 2020_04_20_222038) do
 
   create_table "island_listings", force: :cascade do |t|
     t.string "island_name"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_04_20_182715) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "confirmed"
+    t.boolean "confirmed", default: false, null: false
   end
 
   add_foreign_key "island_listings", "users"
