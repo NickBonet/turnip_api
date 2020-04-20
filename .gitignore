@@ -26,6 +26,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/credentials.yml.enc
-*.env
+*.env.*
 
 turnip_api.code-workspace

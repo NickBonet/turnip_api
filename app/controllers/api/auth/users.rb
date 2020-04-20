@@ -57,9 +57,6 @@ module API
         post do
           if !authorized?
             User.create!(name: params[:username], email: params[:email], password: params[:password])
-            confirm_token = SecureRandom.urlsafe_base64.to_s
-            # Expire the sign up token in a day. TODO: will clean up unconfirmed users daily from DB.
-            $redis.set(params[:email], confirm_token, :ex => 86400, :nx => true) 
             # TODO: need to send token URL in email
             { status: 'User created. Must be confirmed before logging in.' }
           else
