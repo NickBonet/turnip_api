@@ -5,6 +5,7 @@ module API
     class IslandList < Grape::API
       version 'v1', using: :header, vendor: 'K-Shadow'
       format :json
+      dodo_regex = %r{(?!.*(?:I|O|Z))[A-Z0-9]{5}$}
 
       # Requests that don't require auth.
       resource :islands do
@@ -28,7 +29,7 @@ module API
         params do
           requires :island_name, type: String, desc: 'Name of the island'
           requires :player_name, type: String, desc: 'Player name'
-          requires :dodo_code, type: String, desc: 'Dodo code'
+          requires :dodo_code, type: String, desc: 'Dodo code', regexp: dodo_regex
           requires :description, type: String, desc: 'Description of island/event'
         end
         post do
@@ -47,7 +48,7 @@ module API
         desc 'Allows for updating Dodo Code and player count.'
         params do
           requires :id, type: Integer
-          requires :dodo, type: String
+          requires :dodo, type: String, regexp: dodo_regex
           requires :count, type: Integer
         end
         put do
