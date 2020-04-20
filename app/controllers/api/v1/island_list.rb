@@ -5,7 +5,7 @@ module API
     class IslandList < Grape::API
       version 'v1', using: :header, vendor: 'K-Shadow'
       format :json
-      dodo_regex = %r{(?!.*(?:I|O|Z))[A-Z0-9]{5}$}
+      dodo_regex = /(?!.*(?:I|O|Z))[A-Z0-9]{5}$/
 
       # Requests that don't require auth.
       resource :islands do

@@ -9,4 +9,13 @@ class User < ApplicationRecord
   validates_presence_of     :name
   validates_uniqueness_of   :email
   validates_uniqueness_of   :name
+
+  def self.from_token_request request
+    if request.params['auth'].key?('email')
+      user = self.find_by email: request.params['auth']['email']
+      if user.confirmed?
+        user
+      end
+    end
+  end
 end

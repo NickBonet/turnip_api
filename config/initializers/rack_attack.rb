@@ -17,16 +17,9 @@ class Rack::Attack
     end
   end
 
-
   throttle('update user/ip', limit: 5, period: 1.day) do |req|
     if req.path == '/auth/users' && req.put?
       req.ip
-    end
-  end
-
-  throttle("logins/email", limit: 3, period: 20.seconds) do |req|
-    if req.path == '/auth/user_token' && req.post?
-      req.params['auth']['email'].presence
     end
   end
 end
