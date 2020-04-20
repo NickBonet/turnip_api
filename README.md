@@ -7,4 +7,4 @@ Of course, config/database.yml should be configured with database of choice. (Us
 
 Requires Redis server to be running for some functionality. (config/redis.yml)
 
-Also requires ENV vars to be set for SMTP server. (development.env/production.env)
+Also requires ENV vars to be set for SMTP server. (.env.development/.env.production)
