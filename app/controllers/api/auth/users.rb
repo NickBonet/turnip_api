@@ -7,17 +7,6 @@ module API
       password_regex = %r{^(?=.*\d)(?=.*[~!@#$%^&*()_\-+=|\\\{\}\[\]:;<>?\/])(?=.*[A-Z])(?=.*[a-z])\S{8,40}$}
       username_regex = /^[A-Za-z][A-Za-z0-9_-]{3,29}$/
 
-      helpers do
-        # If the client is even sending an Authorization header, ignore the request.
-        def authorized?
-          if headers.key?('Authorization')
-            true
-          else
-            false
-          end
-        end
-      end
-
       resource :signup_confirm do
         desc 'Validates a signup confirmation token.'
         params do
@@ -26,21 +15,16 @@ module API
                            regexp: URI::MailTo::EMAIL_REGEXP
         end
         post do
-          if !authorized?
-            stored_token = $redis.get(params[:email])
-            if (stored_token == params[:confirm_token])
-              user = User.find_by!(email: params[:email])
-              user.update!(confirmed: true)
-              $redis.del(params[:email])
-              status 200
-              { status: 'Your account is confirmed.' }
-            else
-              status 404
-              { status: 'Confirmation token not found.' }
-            end
+          stored_token = $redis.get(params[:email])
+          if (stored_token == params[:confirm_token])
+            user = User.find_by!(email: params[:email])
+            user.update!(confirmed: true)
+            $redis.del(params[:email])
+            status 200
+            { status: 'Your account is confirmed.' }
           else
-            status 403
-            { status: 'You are already logged in!' }
+            status 404
+            { status: 'Confirmation token not found.' }
           end
         end
       end
@@ -55,14 +39,9 @@ module API
           requires :password_confirm, type: String, regexp: password_regex, same_as: :password
         end
         post do
-          if !authorized?
-            User.create!(name: params[:username], email: params[:email], password: params[:password])
-            # TODO: need to send token URL in email
-            { status: 'User created. Must be confirmed before logging in.' }
-          else
-            status 403
-            { status: 'You are already logged in!' }
-          end
+          User.create!(name: params[:username], email: params[:email], password: params[:password])
+          # TODO: need to send token URL in email
+          { status: 'User created. Must be confirmed before logging in.' }
         end
       end
 
