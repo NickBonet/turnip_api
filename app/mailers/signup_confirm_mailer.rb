@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SignupConfirmMailer < ApplicationMailer
   default from: ENV['SMTP_USERNAME']
 

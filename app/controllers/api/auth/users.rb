@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module API
   module Auth
     class Users < Grape::API
@@ -16,7 +17,7 @@ module API
         end
         post do
           stored_token = $redis.get(params[:email])
-          if (stored_token == params[:confirm_token])
+          if stored_token == params[:confirm_token]
             user = User.find_by!(email: params[:email])
             user.update!(confirmed: true)
             $redis.del(params[:email])
