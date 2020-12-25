@@ -37,6 +37,10 @@ module TurnipApi
     config.api_only = true
 
     config.middleware.use Rack::Attack
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Flash
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_turnip_api_session"}
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
