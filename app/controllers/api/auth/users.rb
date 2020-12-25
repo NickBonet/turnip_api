@@ -5,7 +5,7 @@ module API
     class Users < Grape::API
       version 'v1', using: :header, vendor: 'K-Shadow'
       format :json
-      password_regex = %r{^(?=.*\d)(?=.*[~!@#$%^&*()_\-+=|\\\{\}\[\]:;<>?\/])(?=.*[A-Z])(?=.*[a-z])\S{8,40}$}
+      password_regex = %r{^(?=.*\d)(?=.*[~!@#$%^&*()_\-+=|\\\{\}\[\]:;<>?/])(?=.*[A-Z])(?=.*[a-z])\S{8,40}$}
       username_regex = /^[A-Za-z][A-Za-z0-9_-]{3,29}$/
 
       resource :signup_confirm do
